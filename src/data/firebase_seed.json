@@ -1,0 +1,232 @@
+{
+    "assets": {
+        "W-01": {
+            "id": "W-01",
+            "type": "Water Tank A",
+            "category": "water",
+            "coords": [
+                10.3598,
+                76.2860
+            ],
+            "status": "critical",
+            "val": "15%",
+            "details": "Main Campus (Low Level)"
+        },
+        "W-02": {
+            "id": "W-02",
+            "type": "Water Tank B",
+            "category": "water",
+            "coords": [
+                10.3585,
+                76.2875
+            ],
+            "status": "warning",
+            "val": "45%",
+            "details": "Mens Hostel"
+        },
+        "W-03": {
+            "id": "W-03",
+            "type": "Water Tank C",
+            "category": "water",
+            "coords": [
+                10.3610,
+                76.2850
+            ],
+            "status": "normal",
+            "val": "92%",
+            "details": "Lab Block"
+        },
+        "W-04": {
+            "id": "W-04",
+            "type": "Water Tank D",
+            "category": "water",
+            "coords": [
+                10.3575,
+                76.2865
+            ],
+            "status": "warning",
+            "val": "30%",
+            "details": "Main Mess"
+        },
+        "W-05": {
+            "id": "W-05",
+            "type": "Water Tank E",
+            "category": "water",
+            "coords": [
+                10.3592,
+                76.2842
+            ],
+            "status": "normal",
+            "val": "78%",
+            "details": "Admin Block"
+        },
+        "W-06": {
+            "id": "W-06",
+            "type": "Treatment Plant",
+            "category": "water",
+            "coords": [
+                10.3615,
+                76.2845
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "RO Unit"
+        },
+        "E-01": {
+            "id": "E-01",
+            "type": "Main Substation",
+            "category": "energy",
+            "coords": [
+                10.3590,
+                76.2855
+            ],
+            "status": "normal",
+            "val": "482kW",
+            "details": "Grid Connection"
+        },
+        "E-02": {
+            "id": "E-02",
+            "type": "Solar Array",
+            "category": "energy",
+            "coords": [
+                10.3582,
+                76.2868
+            ],
+            "status": "normal",
+            "val": "125kW",
+            "details": "Rooftop Generation"
+        },
+        "E-03": {
+            "id": "E-03",
+            "type": "Feeder 1",
+            "category": "energy",
+            "coords": [
+                10.3595,
+                76.2840
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "Admin Block Supply"
+        },
+        "E-04": {
+            "id": "E-04",
+            "type": "Feeder 2",
+            "category": "energy",
+            "coords": [
+                10.3578,
+                76.2880
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "Hostel Zone Supply"
+        },
+        "E-05": {
+            "id": "E-05",
+            "type": "Feeder 3",
+            "category": "energy",
+            "coords": [
+                10.3608,
+                76.2852
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "Lab Complex Supply"
+        },
+        "E-06": {
+            "id": "E-06",
+            "type": "Diesel Gen",
+            "category": "energy",
+            "coords": [
+                10.3595,
+                76.2870
+            ],
+            "status": "offline",
+            "val": "Standby",
+            "details": "Backup Power"
+        },
+        "E-07": {
+            "id": "E-07",
+            "type": "Biogas Plant",
+            "category": "energy",
+            "coords": [
+                10.3570,
+                76.2860
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "Waste to Energy"
+        },
+        "E-08": {
+            "id": "E-08",
+            "type": "Battery Bank",
+            "category": "energy",
+            "coords": [
+                10.3588,
+                76.2858
+            ],
+            "status": "normal",
+            "val": "85%",
+            "details": "Energy Storage"
+        },
+        "C-01": {
+            "id": "C-01",
+            "type": "Street Lights",
+            "category": "controls",
+            "coords": [
+                10.3600,
+                76.2860
+            ],
+            "status": "offline",
+            "val": "Off",
+            "details": "Main Avenue Zone"
+        },
+        "C-02": {
+            "id": "C-02",
+            "type": "Irrigation Pump",
+            "category": "controls",
+            "coords": [
+                10.3580,
+                76.2850
+            ],
+            "status": "normal",
+            "val": "Active",
+            "details": "Garden Sector B"
+        },
+        "I-01": {
+            "id": "I-01",
+            "type": "Traffic Alert",
+            "category": "incidents",
+            "coords": [
+                10.3602,
+                76.2858
+            ],
+            "status": "critical",
+            "val": "Congestion",
+            "details": "Gate 2 Entrance"
+        },
+        "I-02": {
+            "id": "I-02",
+            "type": "Sensor Hub 5",
+            "category": "incidents",
+            "coords": [
+                10.3585,
+                76.2848
+            ],
+            "status": "warning",
+            "val": "Timeout",
+            "details": "Connection Error"
+        },
+        "S-01": {
+            "id": "S-01",
+            "type": "Waste Bin #42",
+            "category": "incidents",
+            "coords": [
+                10.3600,
+                76.2862
+            ],
+            "status": "critical",
+            "val": "Full",
+            "details": "Canteen Area"
+        }
+    }
+}
