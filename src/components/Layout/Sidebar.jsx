@@ -7,7 +7,8 @@ import {
     Droplets,
     AlertTriangle,
     Settings,
-    Activity
+    Activity,
+    Leaf
 } from 'lucide-react';
 
 import { useAuth } from '../../context/AuthContext';
@@ -73,6 +74,7 @@ export const Sidebar = ({ activeView = 'dashboard', onNavigate, isOpen, onClose 
                     <NavItem icon={LayoutDashboard} label="Dashboard" active={activeView === 'dashboard'} onClick={() => { onNavigate('dashboard'); onClose?.(); }} />
                     <NavItem icon={MapIcon} label="City Map" active={activeView === 'map'} onClick={() => { onNavigate('map'); onClose?.(); }} />
                     <NavItem icon={Activity} label="Live Monitoring" active={activeView === 'live'} onClick={() => { onNavigate('live'); onClose?.(); }} />
+                    <NavItem icon={Leaf} label="Soil Monitoring" active={activeView === 'soil'} onClick={() => { onNavigate('soil'); onClose?.(); }} />
 
                     <div className="mt-8 px-4 pb-2 text-xs font-semibold text-slate-600 uppercase tracking-widest">System</div>
                     <NavItem

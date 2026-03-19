@@ -4,6 +4,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { FullMapView } from './components/Views/FullMapView';
 import { LiveMonitoring } from './components/Views/LiveMonitoring';
 import { SystemConfig } from './components/Views/SystemConfig';
+import { SoilMonitoring } from './components/Views/SoilMonitoring';
 import { SplashScreen } from './components/Layout/SplashScreen';
 import { AssetsProvider } from './context/AssetsContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -37,6 +38,7 @@ function AppContent() {
             case 'water': return <FullMapView initialLayer="water" onNavigate={handleNavigate} />;
             case 'controls': return <FullMapView initialLayer="controls" showControls={true} onNavigate={handleNavigate} />;
             case 'incidents': return <FullMapView initialLayer="incidents" onNavigate={handleNavigate} />;
+            case 'soil': return <SoilMonitoring />;
             case 'settings': return <SystemConfig />;
             default: return <Dashboard onNavigate={handleNavigate} />;
         }
