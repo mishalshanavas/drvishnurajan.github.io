@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { HeartPulse, Thermometer, Activity, Users, AlertTriangle, Sparkles } from 'lucide-react';
+import { HeartPulse, Thermometer, Activity, Users, AlertTriangle } from 'lucide-react';
 import { DashboardCard } from '../Shared/DashboardCard';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 
 const StatCard = ({ label, value, unit, icon: Icon, tone = 'red' }) => {
     const tones = {
@@ -111,11 +112,9 @@ export const HealthDashboard = () => {
                         Public health monitoring with vitals analytics, symptom clustering, and early warning signals
                     </p>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-violet-50 px-3 py-2 text-violet-700 text-xs font-semibold">
-                    <Sparkles size={14} />
-                    AI gimmick: Outbreak Radar Active
-                </div>
             </div>
+
+            <DemoEncryptionNotice />
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                 <StatCard label="People Monitored" value={computed.monitored} unit="" icon={Users} tone="blue" />

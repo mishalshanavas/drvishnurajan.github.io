@@ -4,6 +4,7 @@ import { Activity, Thermometer, Wind, Wifi, Battery, Server, ArrowLeft, Clock, M
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useAssets } from '../../hooks/useAssets';
 import { formatTimeIST } from '../../utils/timeUtils';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 
 const parseAssetValue = (val) => {
     if (val === undefined || val === null) return { value: 0, unit: '' };
@@ -347,6 +348,9 @@ export const LiveMonitoring = ({ initialAssetId }) => {
     if (selectedAssetId) {
         return (
             <div className="p-6 h-full flex flex-col">
+                <div className="mb-4">
+                    <DemoEncryptionNotice />
+                </div>
                 <AssetDetailView assetId={selectedAssetId} onBack={() => setSelectedAssetId(null)} />
             </div>
         );
@@ -354,6 +358,8 @@ export const LiveMonitoring = ({ initialAssetId }) => {
 
     return (
         <div className="p-6 h-full flex flex-col gap-6 overflow-hidden">
+            <DemoEncryptionNotice />
+
             <div className="flex flex-col md:flex-row md:items-center justify-between flex-shrink-0 gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-slate-800">Live Sensor Network</h2>

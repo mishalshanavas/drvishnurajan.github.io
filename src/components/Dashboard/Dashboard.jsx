@@ -2,6 +2,7 @@ import React from 'react';
 import { MapVisualizer } from './MapVisualizer/MapVisualizer';
 import { KPIStats } from './KPIBoard/KPIStats';
 import { AssetGrid } from './ControlPanel/AssetGrid';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 
 export const Dashboard = ({ onNavigate }) => {
     return (
@@ -20,6 +21,10 @@ export const Dashboard = ({ onNavigate }) => {
                 {/* Top Section: KPIs */}
                 <div className="pointer-events-auto mb-4 md:mb-0">
                     <KPIStats />
+                </div>
+
+                <div className="pointer-events-auto mb-4 md:mb-0">
+                    <DemoEncryptionNotice />
                 </div>
 
                 {/* Bottom Section: Controls & Detailed Stats */}

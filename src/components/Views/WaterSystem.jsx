@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Droplets, AlertCircle, CheckCircle2, Waves, FlaskConical, Thermometer } from 'lucide-react';
 import { DashboardCard } from '../Shared/DashboardCard';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 
 const tankData = [
     { name: 'Tank A (Main)', level: 15 },
@@ -68,6 +69,10 @@ export const WaterSystem = () => {
 
     return (
         <div className="p-6 h-full flex flex-col gap-6 overflow-y-auto">
+            <div className="shrink-0">
+                <DemoEncryptionNotice />
+            </div>
+
             {/* Header Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="bg-cyan-500 text-white rounded-2xl p-6 md:col-span-1 flex flex-col justify-between shadow-lg shadow-cyan-500/20">

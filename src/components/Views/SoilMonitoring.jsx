@@ -9,6 +9,7 @@ import {
     ResponsiveContainer, ReferenceLine
 } from 'recharts';
 import { DashboardCard } from '../Shared/DashboardCard';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 import { db } from '../../firebase.config';
 import { ref, onValue, push, set, remove, query, limitToLast, serverTimestamp } from 'firebase/database';
 
@@ -298,6 +299,8 @@ export const SoilMonitoring = () => {
                     </button>
                 </div>
             </div>
+
+            <DemoEncryptionNotice />
 
             {/* Status Banner */}
             <div className={`rounded-2xl border p-5 shadow-lg ${color === 'green'

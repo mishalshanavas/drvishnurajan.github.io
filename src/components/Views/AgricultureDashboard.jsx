@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { Leaf, Thermometer, Droplets, CloudRain, ShieldAlert, Bug } from 'lucide-react';
 import { DashboardCard } from '../Shared/DashboardCard';
+import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 
 const StatCard = ({ label, value, unit, icon: Icon, tone = 'green' }) => {
     const tones = {
@@ -98,6 +99,8 @@ export const AgricultureDashboard = () => {
                     Crop disease prediction based on humidity, temperature, moisture, and leaf wetness
                 </p>
             </div>
+
+            <DemoEncryptionNotice />
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                 <StatCard label="Humidity" value={latest.humidity} unit="%" icon={Droplets} tone="blue" />
