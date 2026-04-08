@@ -11,7 +11,7 @@ import {
 import { DashboardCard } from '../Shared/DashboardCard';
 import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 import { db } from '../../firebase.config';
-import { ref, onValue, set, remove, update } from 'firebase/database';
+import { ref, onValue, remove, update } from 'firebase/database';
 
 // ── Trained Linear Regression Coefficients (from Python model) ──────────────
 const MODEL_COEFFICIENTS = {
@@ -29,26 +29,6 @@ const THRESHOLD = 5;
 
 // ── Firebase paths ──────────────────────────────────────────────────────────
 const FB_LATEST = 'soil_monitoring/latest';
-const LEGACY_LATEST_KEYS = [
-    'Air_Humidity',
-    'Air_Temperature',
-    'Analog_Moisture_Value',
-    'Nitrogen',
-    'Phosphorus',
-    'Potassium',
-    'Soil_Moisture_Capacitive',
-    'Soil_Moisture_NPK',
-    'Soil_Temperature',
-    'current_moisture',
-    'ideal_moisture',
-    'recommendation',
-    'status',
-    'pump_status',
-    'pump_status_time',
-    'pump_updatedAt',
-    'time',
-    'timestamp',
-];
 
 // ── Sensor value ranges ─────────────────────────────────────────────────────
 const SENSOR_RANGES = {
@@ -242,22 +222,6 @@ export const SoilMonitoring = () => {
         pumpOnRef.current = pumpOn;
     }, [pumpOn]);
 
-    // ── Push latest sensor values to Firebase (new flat schema) ─────────────
-    const pushToFirebase = useCallback((sensorData) => {
-        const latestPayload = {
-            soil_moisture_1: toNumberOr(sensorData.Soil_Moisture_Capacitive_M1, sensorData.Soil_Moisture_Capacitive),
-            soil_moisture_2: toNumberOr(sensorData.Soil_Moisture_Capacitive_M2, sensorData.Soil_Moisture_Capacitive),
-            soil_moisture_3: toNumberOr(sensorData.Soil_Moisture_Capacitive_M3, sensorData.Soil_Moisture_Capacitive),
-            nitrogen: toNumberOr(sensorData.Nitrogen, 0),
-            phosphorus: toNumberOr(sensorData.Phosphorus, 0),
-            potassium: toNumberOr(sensorData.Potassium, 0),
-            temperature: toNumberOr(sensorData.Soil_Temperature, 0),
-            humidity: toNumberOr(sensorData.Air_Humidity, 0),
-            pump: pumpOnRef.current ? 'on' : 'off',
-        };
-        set(ref(db, FB_LATEST), latestPayload).catch(console.error);
-    }, []);
-
     // ── Simulated tick ──────────────────────────────────────────────────────
     const tick = useCallback(() => {
         const newReading = generateReading(latestReadingRef.current);
@@ -270,9 +234,7 @@ export const SoilMonitoring = () => {
             const next = [...prev, { time: timeLabel(), current, ideal, status: info.status }];
             return next.length > MAX_HISTORY ? next.slice(-MAX_HISTORY) : next;
         });
-        // Also push to Firebase so data is persisted
-        pushToFirebase(newReading);
-    }, [pushToFirebase]);
+    }, []);
 
     // ── Simulation interval ─────────────────────────────────────────────────
     useEffect(() => {
@@ -292,14 +254,6 @@ export const SoilMonitoring = () => {
         const unsubLatest = onValue(latestRef, (snap) => {
             const data = snap.val();
             if (data) {
-                const legacyCleanup = LEGACY_LATEST_KEYS.reduce((acc, key) => {
-                    if (data[key] !== undefined) acc[key] = null;
-                    return acc;
-                }, {});
-                if (Object.keys(legacyCleanup).length > 0) {
-                    update(latestRef, legacyCleanup).catch(console.error);
-                }
-
                 const normalized = normalizeReading(data);
                 setReading(normalized);
                 latestReadingRef.current = normalized;
