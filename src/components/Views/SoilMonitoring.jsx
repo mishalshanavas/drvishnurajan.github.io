@@ -11,7 +11,7 @@ import {
 import { DashboardCard } from '../Shared/DashboardCard';
 import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 import { db } from '../../firebase.config';
-import { ref, onValue, remove, update } from 'firebase/database';
+import { ref, onValue, update } from 'firebase/database';
 
 // ── Trained Linear Regression Coefficients (from Python model) ──────────────
 const MODEL_COEFFICIENTS = {
@@ -274,9 +274,8 @@ export const SoilMonitoring = () => {
         return () => { unsubLatest(); };
     }, [dataSource]);
 
-    // ── Clear latest data + local chart history ─────────────────────────────
+    // ── Clear local chart history ───────────────────────────────────────────
     const clearHistory = () => {
-        remove(ref(db, FB_LATEST)).catch(console.error);
         setHistory([]);
     };
 
