@@ -9,6 +9,8 @@ import { EnergyDashboard } from './components/Views/EnergyDashboard';
 import { AgricultureDashboard } from './components/Views/AgricultureDashboard';
 import { HealthDashboard } from './components/Views/HealthDashboard';
 import { WaterSystem } from './components/Views/WaterSystem';
+import { SustainabilityDashboard } from './components/Views/SustainabilityDashboard';
+import { WasteManagement } from './components/Views/WasteManagement';
 import { SplashScreen } from './components/Layout/SplashScreen';
 import { AssetsProvider } from './context/AssetsContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -43,6 +45,8 @@ function AppContent() {
             case 'agriculture': return <AgricultureDashboard />;
             case 'health': return <HealthDashboard />;
             case 'water': return <WaterSystem />;
+            case 'sustainability': return <SustainabilityDashboard />;
+            case 'waste-management': return <WasteManagement />;
             case 'controls': return <FullMapView initialLayer="controls" showControls={true} onNavigate={handleNavigate} />;
             case 'incidents': return <FullMapView initialLayer="incidents" onNavigate={handleNavigate} />;
             case 'soil': return <SoilMonitoring />;
