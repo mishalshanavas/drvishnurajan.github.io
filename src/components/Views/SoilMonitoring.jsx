@@ -205,11 +205,16 @@ export const SoilMonitoring = () => {
     const [pumpOn, setPumpOn] = useState(false);
     const intervalRef = useRef(null);
     const latestReadingRef = useRef(reading);
+    const pumpOnRef = useRef(pumpOn);
     const MAX_HISTORY = 30;
 
     useEffect(() => {
         latestReadingRef.current = reading;
     }, [reading]);
+
+    useEffect(() => {
+        pumpOnRef.current = pumpOn;
+    }, [pumpOn]);
 
     // ── Push a reading + prediction to Firebase ─────────────────────────────
     const pushToFirebase = useCallback((sensorData, ideal, current, info) => {
@@ -225,7 +230,7 @@ export const SoilMonitoring = () => {
             current_moisture: current,
             status: info.status,
             recommendation: info.recommendation,
-            pump_status: pumpOn ? 'on' : 'off',
+            pump_status: pumpOnRef.current ? 'on' : 'off',
             time: timeLabel(),
             timestamp: Date.now(),
         };
@@ -233,7 +238,7 @@ export const SoilMonitoring = () => {
         set(ref(db, FB_LATEST), entry).catch(console.error);
         // Push to history
         push(ref(db, FB_HISTORY), entry).catch(console.error);
-    }, [pumpOn]);
+    }, []);
 
     // ── Simulated tick ──────────────────────────────────────────────────────
     const tick = useCallback(() => {
@@ -312,6 +317,7 @@ export const SoilMonitoring = () => {
     const togglePump = async () => {
         const next = !pumpOn;
         setPumpOn(next);
+        pumpOnRef.current = next;
         try {
             await update(ref(db, FB_LATEST), {
                 pump_status: next ? 'on' : 'off',
@@ -320,6 +326,7 @@ export const SoilMonitoring = () => {
             });
         } catch (err) {
             setPumpOn(!next);
+            pumpOnRef.current = !next;
             console.error(err);
         }
     };
