@@ -11,7 +11,7 @@ import {
 import { DashboardCard } from '../Shared/DashboardCard';
 import { DemoEncryptionNotice } from '../Shared/DemoEncryptionNotice';
 import { db } from '../../firebase.config';
-import { ref, onValue, push, set, remove, query, limitToLast, serverTimestamp } from 'firebase/database';
+import { ref, onValue, push, set, remove, query, limitToLast, serverTimestamp, update } from 'firebase/database';
 
 // ── Trained Linear Regression Coefficients (from Python model) ──────────────
 const MODEL_COEFFICIENTS = {
@@ -202,6 +202,7 @@ export const SoilMonitoring = () => {
     const [isRunning, setIsRunning] = useState(true);
     const [dataSource, setDataSource] = useState('simulate'); // 'simulate' | 'firebase'
     const [fbConnected, setFbConnected] = useState(false);
+    const [pumpOn, setPumpOn] = useState(false);
     const intervalRef = useRef(null);
     const latestReadingRef = useRef(reading);
     const MAX_HISTORY = 30;
@@ -224,6 +225,7 @@ export const SoilMonitoring = () => {
             current_moisture: current,
             status: info.status,
             recommendation: info.recommendation,
+            pump_status: pumpOn ? 'on' : 'off',
             time: timeLabel(),
             timestamp: Date.now(),
         };
@@ -231,7 +233,7 @@ export const SoilMonitoring = () => {
         set(ref(db, FB_LATEST), entry).catch(console.error);
         // Push to history
         push(ref(db, FB_HISTORY), entry).catch(console.error);
-    }, []);
+    }, [pumpOn]);
 
     // ── Simulated tick ──────────────────────────────────────────────────────
     const tick = useCallback(() => {
@@ -271,6 +273,9 @@ export const SoilMonitoring = () => {
                 const normalized = normalizeReading(data);
                 setReading(normalized);
                 latestReadingRef.current = normalized;
+                if (typeof data.pump_status === 'string') {
+                    setPumpOn(data.pump_status.toLowerCase() === 'on');
+                }
                 setFbConnected(true);
             }
         }, () => setFbConnected(false));
@@ -302,6 +307,21 @@ export const SoilMonitoring = () => {
         remove(ref(db, FB_HISTORY)).catch(console.error);
         remove(ref(db, FB_LATEST)).catch(console.error);
         setHistory([]);
+    };
+
+    const togglePump = async () => {
+        const next = !pumpOn;
+        setPumpOn(next);
+        try {
+            await update(ref(db, FB_LATEST), {
+                pump_status: next ? 'on' : 'off',
+                pump_status_time: timeLabel(),
+                pump_updatedAt: serverTimestamp(),
+            });
+        } catch (err) {
+            setPumpOn(!next);
+            console.error(err);
+        }
     };
 
     const ideal = predict(reading);
@@ -387,6 +407,18 @@ export const SoilMonitoring = () => {
                         title="Clear Firebase history"
                     >
                         <Trash2 size={14} />
+                    </button>
+
+                    {/* Pump Control */}
+                    <button
+                        onClick={togglePump}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all shadow-sm ${pumpOn
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                            : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'}`}
+                        title="Toggle irrigation pump and sync to Firebase"
+                    >
+                        <Droplets size={16} />
+                        Pump {pumpOn ? 'ON' : 'OFF'}
                     </button>
                 </div>
             </div>
